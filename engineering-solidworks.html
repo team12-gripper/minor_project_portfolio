@@ -68,21 +68,27 @@
         /* Drawings Grid & Cards (Simplified Layout) */
         .drawings-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 2.5rem;
             margin-top: 3rem;
             margin-bottom: 4rem;
         }
 
-        @media (max-width: 992px) {
-            .drawings-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .drawing-card.a3-card {
+            grid-column: span 2;
+        }
+
+        .drawing-card.a4-card {
+            grid-column: span 1;
         }
 
         @media (max-width: 768px) {
             .drawings-grid {
                 grid-template-columns: 1fr;
+            }
+            .drawing-card.a3-card,
+            .drawing-card.a4-card {
+                grid-column: span 1;
             }
         }
 
@@ -224,21 +230,13 @@
         }
 
         .cad-viewer-container {
-            display: grid;
-            grid-template-columns: 3fr 1fr;
-            gap: 1.5rem;
+            display: block;
             background: #0f172a; /* Dark background matching the viewport */
             border-radius: var(--radius);
             padding: 1.5rem;
             box-shadow: var(--shadow-lg);
             border: 1px solid #334155;
             overflow: hidden;
-        }
-
-        @media (max-width: 992px) {
-            .cad-viewer-container {
-                grid-template-columns: 1fr;
-            }
         }
 
         .cad-viewport-wrapper {
@@ -385,105 +383,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* Sidebar Settings Panel */
-        .cad-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            color: white;
-            font-family: 'Inter', sans-serif;
-            justify-content: center;
-        }
-
-        .cad-sidebar-section {
-            border-bottom: 1px solid #334155;
-            padding-bottom: 1.25rem;
-        }
-
-        .cad-sidebar-section:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .cad-section-title {
-            font-family: 'Poppins', sans-serif;
-            color: #94a3b8;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.75rem;
-            margin-top: 0;
-        }
-
-        /* Group buttons styling */
-        .cad-btn-group {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
-        }
-
-        .cad-theme-btn, .cad-mode-btn {
-            background: #1e293b;
-            border: 1px solid #334155;
-            color: #cbd5e1;
-            padding: 0.6rem 0.4rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-        }
-
-        .cad-theme-btn:hover, .cad-mode-btn:hover {
-            background: #334155;
-            color: white;
-        }
-
-        .cad-theme-btn.active, .cad-mode-btn.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-            font-weight: 600;
-        }
-
-        /* File Upload Area */
-        .cad-uploader {
-            border: 2px dashed #334155;
-            border-radius: 8px;
-            padding: 1.2rem;
-            text-align: center;
-            background: #1e293b;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .cad-uploader:hover {
-            border-color: var(--accent);
-            background: rgba(30, 41, 59, 0.5);
-        }
-
-        .cad-uploader-icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .cad-uploader p {
-            color: #cbd5e1;
-            font-size: 0.8rem;
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        .cad-uploader span {
-            color: #64748b;
-            font-size: 0.7rem;
-            display: block;
-            margin-top: 0.3rem;
-        }
     </style>
 </head>
 
@@ -549,7 +448,7 @@
                         <!-- Floating loading spinner -->
                         <div class="cad-spinner" id="cad-viewer-spinner">
                             <div class="spinner-icon"></div>
-                            <div>Parsing 3D CAD Model...</div>
+                            <div>Loading Gripper.STL...</div>
                         </div>
 
                         <!-- Floating Alerts -->
@@ -559,40 +458,10 @@
                         <div class="cad-overlay-controls">
                             <button id="cad-play-pause" class="active">⏸ Pause Orbit</button>
                             <button id="cad-reset-cam">🔄 Reset View</button>
-                            <button id="cad-clear-stl" style="display: none; background: rgba(239, 68, 68, 0.4); border-color: rgba(239, 68, 68, 0.6);">🗑 Clear STL</button>
-                        </div>
-                    </div>
-
-                    <!-- Sidebar controls -->
-                    <div class="cad-sidebar">
-                        <div class="cad-sidebar-section">
-                            <h5 class="cad-section-title">Appearance Theme</h5>
-                            <div class="cad-btn-group">
-                                <button class="cad-theme-btn active" data-theme="matte-gray">Matte Gray</button>
-                                <button class="cad-theme-btn" data-theme="stainless-steel">Steel</button>
-                                <button class="cad-theme-btn" data-theme="brass">Brass</button>
-                                <button class="cad-theme-btn" data-theme="copper">Copper</button>
-                            </div>
                         </div>
 
-                        <div class="cad-sidebar-section">
-                            <h5 class="cad-section-title">Display Mode</h5>
-                            <div class="cad-btn-group">
-                                <button class="cad-mode-btn active" data-mode="shaded">Shaded</button>
-                                <button class="cad-mode-btn" data-mode="wireframe">Wireframe</button>
-                                <button class="cad-mode-btn" data-mode="points" style="grid-column: span 2;">Points Cloud</button>
-                            </div>
-                        </div>
-
-                        <div class="cad-sidebar-section">
-                            <h5 class="cad-section-title">Upload Custom Model</h5>
-                            <div class="cad-uploader" onclick="document.getElementById('cad-file-input').click()">
-                                <span class="cad-uploader-icon">📁</span>
-                                <p>Drag & Drop an STL file here, or click to upload</p>
-                                <span>Supports binary/ASCII .stl</span>
-                                <input type="file" id="cad-file-input" style="display: none;" accept=".stl">
-                            </div>
-                        </div>
+                        <!-- Hidden File Input for drag & drop or manual upload fallback -->
+                        <input type="file" id="cad-file-input" style="display: none;" accept=".stl">
                     </div>
                 </div>
             </div>
@@ -600,7 +469,7 @@
             <!-- Drawings Grid -->
             <div class="drawings-grid">
                 <!-- Card 1: Main Assembly -->
-                <div class="drawing-card" onclick="openLightbox('images/main assembly.jpg', 'Main Assembly')">
+                <div class="drawing-card a3-card" onclick="openLightbox('images/main assembly.jpg', 'Main Assembly')">
                     <div class="drawing-card-img-wrapper">
                         <img src="images/main assembly.jpg" alt="Main Assembly" onerror="this.src='images/solidworks_drawing.png';">
                     </div>
@@ -610,7 +479,7 @@
                 </div>
 
                 <!-- Card 2: Gripper Body -->
-                <div class="drawing-card" onclick="openLightbox('images/gripper.jpg', 'Gripper Body')">
+                <div class="drawing-card a4-card" onclick="openLightbox('images/gripper.jpg', 'Gripper Body')">
                     <div class="drawing-card-img-wrapper">
                         <img src="images/gripper.jpg" alt="Gripper Body" onerror="this.src='images/solidworks_drawing.png';">
                     </div>
@@ -620,7 +489,7 @@
                 </div>
 
                 <!-- Card 3: Sub-Assembly Pallet -->
-                <div class="drawing-card" onclick="openLightbox('images/sub-assembly pallet.jpg', 'Sub-Assembly Pallet')">
+                <div class="drawing-card a3-card" onclick="openLightbox('images/sub-assembly pallet.jpg', 'Sub-Assembly Pallet')">
                     <div class="drawing-card-img-wrapper">
                         <img src="images/sub-assembly pallet.jpg" alt="Sub-Assembly Pallet" onerror="this.src='images/solidworks_drawing.png';">
                     </div>
@@ -630,7 +499,7 @@
                 </div>
 
                 <!-- Card 4: Pallet Part 01 -->
-                <div class="drawing-card" onclick="openLightbox('images/pallet part 01.jpg', 'Pallet Part 01')">
+                <div class="drawing-card a4-card" onclick="openLightbox('images/pallet part 01.jpg', 'Pallet Part 01')">
                     <div class="drawing-card-img-wrapper">
                         <img src="images/pallet part 01.jpg" alt="Pallet Part 01" onerror="this.src='images/solidworks_drawing.png';">
                     </div>
@@ -640,7 +509,7 @@
                 </div>
 
                 <!-- Card 5: Pallet Part 02 -->
-                <div class="drawing-card" onclick="openLightbox('images/pallet part 02.jpg', 'Pallet Part 02')">
+                <div class="drawing-card a4-card" onclick="openLightbox('images/pallet part 02.jpg', 'Pallet Part 02')">
                     <div class="drawing-card-img-wrapper">
                         <img src="images/pallet part 02.jpg" alt="Pallet Part 02" onerror="this.src='images/solidworks_drawing.png';">
                     </div>
@@ -650,7 +519,7 @@
                 </div>
 
                 <!-- Card 6: Steel Plates -->
-                <div class="drawing-card" onclick="openLightbox('images/steel plates.jpg', 'Mild Steel Plates')">
+                <div class="drawing-card a4-card" onclick="openLightbox('images/steel plates.jpg', 'Mild Steel Plates')">
                     <div class="drawing-card-img-wrapper">
                         <img src="images/steel plates.jpg" alt="Mild Steel Plates" onerror="this.src='images/solidworks_drawing.png';">
                     </div>
