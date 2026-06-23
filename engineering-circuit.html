@@ -92,7 +92,7 @@
         <a href="engineering-bom.html"> Components & BOM</a>
         <a href="engineering-solidworks.html"> Solidworks Drawings</a>
         <a href="engineering-analysis.html"> System Analysis</a>
-        <a href="engineering-circuit.html"class="active"> Circuit Design</a>
+        <a href="engineering-circuit.html" class="active"> Circuit Design</a>
         <a href="engineering-flowchart.html"> Program Flowchart</a>
         <a href="engineering-architecture.html"> Architecture</a>
         <a href="engineering-simulation.html"> Simulation</a>
@@ -124,7 +124,7 @@
                     Electromagnetic Actuation Control Loop
                 </h3>
                 <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.05rem;">
-                    The schematic below outlines the electrical integration for the finalized <strong>Magnetic Gripper</strong> system. To guarantee safety and logic integrity, a dual-stage isolation and step-down power distribution topology is utilized, operating from a primary 24V DC bus. Hover over components in the vector block or use the <strong>Operator Control Console</strong> below to energize the circuits and visualize live current flow, signal relays, and magnetic field generation.
+                    The schematic below outlines the electrical integration for the finalized <strong>4x Solenoid Magnetic Gripper</strong> system. To guarantee safety and logic integrity, a dual-stage isolation and step-down power distribution topology is utilized, operating from a primary 24V DC bus. Hover over components in the vector block or use the <strong>Operator Control Console</strong> below to energize the circuits and visualize live current flow, signal relays, and magnetic field generation.
                 </p>
             </div>
 
@@ -207,10 +207,18 @@
                         <path d="M 560 500 L 710 500 L 710 590 L 930 590 L 930 470 L 900 470" stroke="#991b1b" stroke-width="4" />
                         
                         <!-- 12V Buck Vout- to Solenoid Negative -->
-                        <path d="M 560 520 L 580 520 L 580 660 L 200 660" stroke="#334155" stroke-width="4" />
+                        <path d="M 560 520 L 580 520 L 580 655 L 74 655 L 74 630 L 80 630" stroke="#334155" stroke-width="4" />
+                        <!-- Parallel branches for Solenoid Negative -->
+                        <path d="M 140 630 L 134 630 L 134 655" stroke="#334155" stroke-width="4" />
+                        <path d="M 200 630 L 194 630 L 194 655" stroke="#334155" stroke-width="4" />
+                        <path d="M 260 630 L 254 630 L 254 655" stroke="#334155" stroke-width="4" />
                         
                         <!-- Relay NO to Solenoid Positive -->
-                        <path d="M 900 495 L 950 495 L 950 685 L 180 685 L 180 640 L 200 640" stroke="#991b1b" stroke-width="4" />
+                        <path d="M 900 495 L 950 495 L 950 665 L 77 665 L 77 640 L 80 640" stroke="#991b1b" stroke-width="4" />
+                        <!-- Parallel branches for Solenoid Positive -->
+                        <path d="M 140 640 L 137 640 L 137 665" stroke="#991b1b" stroke-width="4" />
+                        <path d="M 200 640 L 197 640 L 197 665" stroke="#991b1b" stroke-width="4" />
+                        <path d="M 260 640 L 257 640 L 257 665" stroke="#991b1b" stroke-width="4" />
                     </g>
 
                     <!-- ========================================== -->
@@ -247,10 +255,18 @@
                         <path id="wire-12v-relay-pos-flow" d="M 560 500 L 710 500 L 710 590 L 930 590 L 930 470 L 900 470" stroke="#f87171" stroke-width="2.5" class="flow-line power-12v" />
                         
                         <!-- 12V Buck Vout- to Solenoid Negative -->
-                        <path id="wire-12v-sol-neg-flow" d="M 200 660 L 580 660 L 580 520 L 560 520" stroke="#94a3b8" stroke-width="2.5" class="flow-line load-solenoid" />
+                        <path id="wire-12v-sol-neg-flow" d="M 80 630 L 74 630 L 74 655 L 580 655 L 580 520 L 560 520" stroke="#94a3b8" stroke-width="2.5" class="flow-line load-solenoid" />
+                        <!-- Branches flow for Solenoid Negative -->
+                        <path d="M 140 630 L 134 630 L 134 655" stroke="#94a3b8" stroke-width="2" class="flow-line load-solenoid" />
+                        <path d="M 200 630 L 194 630 L 194 655" stroke="#94a3b8" stroke-width="2" class="flow-line load-solenoid" />
+                        <path d="M 260 630 L 254 630 L 254 655" stroke="#94a3b8" stroke-width="2" class="flow-line load-solenoid" />
                         
                         <!-- Relay NO to Solenoid Positive -->
-                        <path id="wire-relay-sol-pos-flow" d="M 900 495 L 950 495 L 950 685 L 180 685 L 180 640 L 200 640" stroke="#f87171" stroke-width="2.5" class="flow-line load-solenoid" />
+                        <path id="wire-relay-sol-pos-flow" d="M 900 495 L 950 495 L 950 665 L 77 665 L 77 640 L 80 640" stroke="#f87171" stroke-width="2.5" class="flow-line load-solenoid" />
+                        <!-- Branches flow for Solenoid Positive -->
+                        <path d="M 140 640 L 137 640 L 137 665" stroke="#f87171" stroke-width="2" class="flow-line load-solenoid" />
+                        <path d="M 200 640 L 197 640 L 197 665" stroke="#f87171" stroke-width="2" class="flow-line load-solenoid" />
+                        <path d="M 260 640 L 257 640 L 257 665" stroke="#f87171" stroke-width="2" class="flow-line load-solenoid" />
                     </g>
 
                     <!-- ========================================== -->
@@ -432,28 +448,81 @@
                         <text x="820" y="558" fill="#94a3b8" font-size="8.5" font-weight="bold" text-anchor="middle">2 CHANNEL RELAY</text>
                     </g>
 
-                    <!-- 8. ELECTROMAGNETIC SOLENOID -->
+                    <!-- 8. 4x ELECTROMAGNETIC SOLENOIDS ARRAY -->
                     <g id="solenoid-group" transform="translate(0, 0)">
-                        <!-- Steel Cylinder Body -->
-                        <rect x="200" y="600" width="110" height="90" rx="4" fill="url(#solenoidGrad)" stroke="#64748b" stroke-width="2" />
-                        <!-- Copper Coil windings inside -->
-                        <rect x="210" y="615" width="90" height="60" fill="url(#coilGrad)" rx="2" />
-                        <line x1="210" y1="623" x2="300" y2="623" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
-                        <line x1="210" y1="631" x2="300" y2="631" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
-                        <line x1="210" y1="639" x2="300" y2="639" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
-                        <line x1="210" y1="647" x2="300" y2="647" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
-                        <line x1="210" y1="655" x2="300" y2="655" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
-                        <line x1="210" y1="663" x2="300" y2="663" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <!-- Solenoid 1 -->
+                        <rect x="80" y="605" width="50" height="60" rx="3" fill="url(#solenoidGrad)" stroke="#64748b" stroke-width="1.5" />
+                        <rect x="85" y="615" width="40" height="40" fill="url(#coilGrad)" rx="1" />
+                        <!-- Windings for Solenoid 1 -->
+                        <line x1="85" y1="620" x2="125" y2="620" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="85" y1="625" x2="125" y2="625" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="85" y1="630" x2="125" y2="630" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="85" y1="635" x2="125" y2="635" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="85" y1="640" x2="125" y2="640" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="85" y1="645" x2="125" y2="645" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="85" y1="650" x2="125" y2="650" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+
+                        <!-- Solenoid 2 -->
+                        <rect x="140" y="605" width="50" height="60" rx="3" fill="url(#solenoidGrad)" stroke="#64748b" stroke-width="1.5" />
+                        <rect x="145" y="615" width="40" height="40" fill="url(#coilGrad)" rx="1" />
+                        <!-- Windings for Solenoid 2 -->
+                        <line x1="145" y1="620" x2="185" y2="620" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="145" y1="625" x2="185" y2="625" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="145" y1="630" x2="185" y2="630" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="145" y1="635" x2="185" y2="635" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="145" y1="640" x2="185" y2="640" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="145" y1="645" x2="185" y2="645" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="145" y1="650" x2="185" y2="650" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+
+                        <!-- Solenoid 3 -->
+                        <rect x="200" y="605" width="50" height="60" rx="3" fill="url(#solenoidGrad)" stroke="#64748b" stroke-width="1.5" />
+                        <rect x="205" y="615" width="40" height="40" fill="url(#coilGrad)" rx="1" />
+                        <!-- Windings for Solenoid 3 -->
+                        <line x1="205" y1="620" x2="245" y2="620" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="205" y1="625" x2="245" y2="625" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="205" y1="630" x2="245" y2="630" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="205" y1="635" x2="245" y2="635" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="205" y1="640" x2="245" y2="640" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="205" y1="645" x2="245" y2="645" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="205" y1="650" x2="245" y2="650" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+
+                        <!-- Solenoid 4 -->
+                        <rect x="260" y="605" width="50" height="60" rx="3" fill="url(#solenoidGrad)" stroke="#64748b" stroke-width="1.5" />
+                        <rect x="265" y="615" width="40" height="40" fill="url(#coilGrad)" rx="1" />
+                        <!-- Windings for Solenoid 4 -->
+                        <line x1="265" y1="620" x2="305" y2="620" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="265" y1="625" x2="305" y2="625" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="265" y1="630" x2="305" y2="630" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="265" y1="635" x2="305" y2="635" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="265" y1="640" x2="305" y2="640" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="265" y1="645" x2="305" y2="645" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
+                        <line x1="265" y1="650" x2="305" y2="650" stroke="#fed7aa" stroke-width="0.5" opacity="0.8" />
                         
-                        <!-- Magnetic Field Waves (pulsing ripples) -->
-                        <path d="M 220 705 A 35 15 0 0 0 290 705" fill="none" stroke="#22d3ee" stroke-width="2" class="magnetic-wave ripple-1" />
-                        <path d="M 205 715 A 50 20 0 0 0 305 715" fill="none" stroke="#06b6d4" stroke-width="2" class="magnetic-wave ripple-2" />
-                        <path d="M 190 725 A 65 25 0 0 0 320 725" fill="none" stroke="#0891b2" stroke-width="1.5" class="magnetic-wave ripple-3" />
+                        <!-- Magnetic Field Waves (pulsing ripples under each solenoid) -->
+                        <!-- Solenoid 1 waves -->
+                        <path d="M 90 680 A 15 6 0 0 0 120 680" fill="none" stroke="#22d3ee" stroke-width="1.5" class="magnetic-wave ripple-1" />
+                        <path d="M 85 686 A 20 8 0 0 0 125 686" fill="none" stroke="#06b6d4" stroke-width="1.5" class="magnetic-wave ripple-2" />
+                        <path d="M 80 692 A 25 10 0 0 0 130 692" fill="none" stroke="#0891b2" stroke-width="1.2" class="magnetic-wave ripple-3" />
+
+                        <!-- Solenoid 2 waves -->
+                        <path d="M 150 680 A 15 6 0 0 0 180 680" fill="none" stroke="#22d3ee" stroke-width="1.5" class="magnetic-wave ripple-1" />
+                        <path d="M 145 686 A 20 8 0 0 0 185 686" fill="none" stroke="#06b6d4" stroke-width="1.5" class="magnetic-wave ripple-2" />
+                        <path d="M 140 692 A 25 10 0 0 0 190 692" fill="none" stroke="#0891b2" stroke-width="1.2" class="magnetic-wave ripple-3" />
+
+                        <!-- Solenoid 3 waves -->
+                        <path d="M 210 680 A 15 6 0 0 0 240 680" fill="none" stroke="#22d3ee" stroke-width="1.5" class="magnetic-wave ripple-1" />
+                        <path d="M 205 686 A 20 8 0 0 0 245 686" fill="none" stroke="#06b6d4" stroke-width="1.5" class="magnetic-wave ripple-2" />
+                        <path d="M 200 692 A 25 10 0 0 0 250 692" fill="none" stroke="#0891b2" stroke-width="1.2" class="magnetic-wave ripple-3" />
+
+                        <!-- Solenoid 4 waves -->
+                        <path d="M 270 680 A 15 6 0 0 0 300 680" fill="none" stroke="#22d3ee" stroke-width="1.5" class="magnetic-wave ripple-1" />
+                        <path d="M 265 686 A 20 8 0 0 0 305 686" fill="none" stroke="#06b6d4" stroke-width="1.5" class="magnetic-wave ripple-2" />
+                        <path d="M 260 692 A 25 10 0 0 0 310 692" fill="none" stroke="#0891b2" stroke-width="1.2" class="magnetic-wave ripple-3" />
                         
                         <!-- Text Labels -->
-                        <text x="255" y="590" fill="#e2e8f0" font-size="10" font-weight="700" text-anchor="middle">KK-P25/20 ELECTROMAGNET</text>
-                        <rect x="212" y="635" width="86" height="20" rx="3" fill="rgba(11,25,44,0.75)" />
-                        <text id="solenoid-status-text" x="255" y="649" fill="#94a3b8" font-size="9" font-weight="bold" text-anchor="middle">DE-ENERGIZED</text>
+                        <text x="195" y="572" fill="#e2e8f0" font-size="10" font-weight="700" text-anchor="middle">4x KK-P25/20 ELECTROMAGNET ARRAY</text>
+                        <rect x="145" y="580" width="100" height="15" rx="3" fill="rgba(11,25,44,0.75)" />
+                        <text id="solenoid-status-text" x="195" y="591" fill="#94a3b8" font-size="8.5" font-weight="bold" text-anchor="middle">DE-ENERGIZED</text>
                     </g>
                 </svg>
             </div>
@@ -481,7 +550,7 @@
                     
                     <!-- Signal Switch -->
                     <div style="background: rgba(255,255,255,0.02); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
-                        <h4 style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 1rem; font-family: 'Poppins', sans-serif;">2. SOLENOID SIGNAL DO.6</h4>
+                        <h4 style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 1rem; font-family: 'Poppins', sans-serif;">2. GRIPPER SIGNAL DO.6</h4>
                         <div style="display: flex; justify-content: center; align-items: center; gap: 1rem;">
                             <span id="signal-lbl" style="font-weight: bold; color: #ef4444; font-size: 0.9rem;">LOW</span>
                             <label class="switch-toggle">
@@ -490,7 +559,7 @@
                             </label>
                             <span style="font-weight: bold; color: #10b981; font-size: 0.9rem;">HIGH</span>
                         </div>
-                        <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.75rem; line-height: 1.4;">Toggles 24V logic signal via Optocoupler isolation to close the relay switches.</p>
+                        <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.75rem; line-height: 1.4;">Toggles 24V logic signal via Optocoupler isolation to close the relay switches and energize the 4-solenoid array.</p>
                     </div>
                     
                     <!-- Auto Trigger Cycles -->
@@ -499,7 +568,7 @@
                         <button id="btn-auto-cycle" class="btn-console" style="background: #14bdac; color: #0f172a; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer; transition: all 0.2s; font-size: 0.9rem;" disabled>
                             ⚡ Run Grip/Release Cycle
                         </button>
-                        <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.75rem; line-height: 1.4;">Executes automated 1.5-second latch grip safety clearance sequences.</p>
+                        <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.75rem; line-height: 1.4;">Executes automated 5-second latch grip safety clearance sequences.</p>
                     </div>
                 </div>
                 
@@ -525,7 +594,7 @@
                     </div>
                     
                     <div style="background: #020617; padding: 1.25rem; border-radius: 6px; border-left: 3px solid #fb7185;">
-                        <div style="color: #64748b; font-size: 0.75rem; font-weight: 600;">SOLENOID CURRENT DRAW</div>
+                        <div style="color: #64748b; font-size: 0.75rem; font-weight: 600;">SOLENOID ARRAY CURRENT DRAW</div>
                         <div style="font-size: 1.8rem; font-weight: bold; color: #fb7185; margin-top: 0.25rem;"><span id="val-amp">0.00</span> A</div>
                         <div style="color: #475569; font-size: 0.75rem; margin-top: 0.25rem;">Power Draw: <span id="val-watt">0.0</span> W</div>
                     </div>
@@ -809,8 +878,8 @@
                     document.querySelectorAll('.signal-opto, .signal-relay, .power-12v, .load-solenoid').forEach(el => el.classList.add('active'));
                     
                     // Telemetry active
-                    animateValue(ampVal, 0, 0.85, 200, 2);
-                    animateValue(wattVal, 0, 10.3, 200, 1);
+                    animateValue(ampVal, 0, 3.05, 200, 2);
+                    animateValue(wattVal, 0, 37.0, 200, 1);
                     animateValue(gaussVal, 0, 1200, 250, 0);
                     gripVal.textContent = 'ACTIVE (HOLDING)';
                     gripVal.style.color = '#10b981';
@@ -818,8 +887,8 @@
                     // Temperature crawling up
                     clearInterval(thermalInterval);
                     thermalInterval = setInterval(() => {
-                        if (temp < 34.2) {
-                            temp += 0.08;
+                        if (temp < 42.5) {
+                            temp += 0.12;
                             tempVal.textContent = temp.toFixed(1);
                         }
                     }, 150);
@@ -828,7 +897,7 @@
                     clearInterval(noiseInterval);
                     noiseInterval = setInterval(() => {
                         if (signalHigh) {
-                            const noisyAmp = 0.85 + (Math.random() * 0.03 - 0.015);
+                            const noisyAmp = 3.05 + (Math.random() * 0.1 - 0.05);
                             ampVal.textContent = noisyAmp.toFixed(2);
                             wattVal.textContent = (noisyAmp * 12.12).toFixed(1);
                             const noisyGauss = Math.floor(1200 + (Math.random() * 20 - 10));
@@ -913,7 +982,7 @@
                 signalSwitch.checked = true;
                 toggleSignal(true);
                 
-                // Latch hold period (1.5 seconds)
+                // Latch hold period (5 seconds)
                 setTimeout(() => {
                     signalSwitch.checked = false;
                     toggleSignal(false);
@@ -921,7 +990,7 @@
                     autoCycleBtn.disabled = false;
                     powerSwitch.disabled = false;
                     signalSwitch.disabled = false;
-                }, 1500);
+                }, 5000);
             });
         });
     </script>
