@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineering Design | Cobot End-Effector</title>
+    <meta name="description" content="Watch the demonstration and POV videos of the custom Cobot End-Effector in action for pallet emptying and ASRS redocking.">
+    <title>Project Demonstration & Videos | Cobot End-Effector</title>
     <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap"
@@ -64,6 +65,163 @@
                 top: 70px;
             }
         }
+
+        /* Video Section Styles */
+        .video-card {
+            background: var(--card-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .video-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .video-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .video-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-demo {
+            background-color: rgba(20, 189, 172, 0.1);
+            color: var(--accent);
+        }
+
+        .badge-pov {
+            background-color: rgba(26, 60, 94, 0.1);
+            color: var(--primary);
+        }
+
+        .video-player-wrapper {
+            position: relative;
+            width: 100%;
+            background: #0f172a; /* Dark background for video */
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .video-element {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            display: none; /* Flex when triggered by error JS */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            z-index: 2;
+        }
+
+        .fallback-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .video-fallback h4 {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .video-fallback p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            max-width: 80%;
+            margin: 0;
+        }
+
+        .video-fallback code {
+            background: rgba(255,255,255,0.15);
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--accent);
+        }
+
+        .video-details {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .video-details p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .video-highlights {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 1.2rem;
+        }
+
+        .video-highlights li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            color: var(--text-dark);
+        }
+
+        .video-highlights .bullet {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
     </style>
 </head>
 
@@ -84,7 +242,7 @@
         <button class="mobile-menu-btn">☰</button>
     </nav>
     <!-- Table of Contents Sticky Bar -->
-     <div class="toc-bar">
+    <div class="toc-bar">
         <a href="engineering-specs.html"> Requirements & Specs</a>
         <a href="engineering-concepts.html"> Conceptual Design</a>
         <a href="engineering-comparison.html"> Comparison of Design</a>
@@ -95,14 +253,13 @@
         <a href="engineering-circuit.html"> Circuit Design</a>
         <a href="engineering-flowchart.html"> Program Flowchart</a>
         <a href="engineering-architecture.html"> Architecture</a>
-        <a href="engineering-simulation.html"class="active"> Simulation</a>
+        <a href="engineering-simulation.html" class="active"> Simulation</a>
     </div>
 <!-- Page Header -->
     <header class="page-header text-center">
         <div class="container reveal">
-            <h1 style="color: white; font-size: 3rem; margin-bottom: 0.5rem;">Engineering Design & Integration</h1>
-            <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 1.5rem;">Comprehensive analysis,
-                modeling, fabrication, and control loop verification of the custom end-effector</p>
+            <h1 style="color: white; font-size: 3rem; margin-bottom: 0.5rem;">Project Demonstration & Videos</h1>
+            <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 1.5rem;">Functional demonstration and POV perspective videos showcasing the custom end-effector in operation</p>
             <div style="display: inline-block;">
                 <span
                     style="background: rgba(20, 189, 172, 0.2); border: 1px solid rgba(20, 189, 172, 0.4); color: white; padding: 0.6rem 2rem; border-radius: 50px; font-weight: 600; font-size: 0.95rem; backdrop-filter: blur(5px);">🟢
@@ -111,43 +268,69 @@
         </div>
     </header>
 
-    <!-- 1. Requirements and Specifications -->
+    <!-- Project Videos Section -->
     <section id="simulation" class="section-padding" style="background-color: var(--card-white);">
         <div class="container reveal">
             <div class="text-center" style="margin-bottom: 4rem;">
-                <span class="subtitle">11. Simulink Modeling & Actuator Response</span>
-                <h2 class="section-title">Simulation</h2>
+                <span class="subtitle">11. Hardware Testing & Functional Validation</span>
+                <h2 class="section-title">Demonstration Videos</h2>
             </div>
 
-            <div class="grid grid-2" style="gap: 4rem; align-items: center;">
-                <div
-                    style="box-shadow: var(--shadow-lg); border-radius: var(--radius); overflow: hidden; border: 1px solid #cbd5e1; background: white;">
-                    <img src="images/simulation_plot.png" alt="MATLAB Simulink Trajectory Tracking"
-                        style="width: 100%; height: auto; display: block;">
+            <div style="display: flex; flex-direction: column; gap: 4rem; max-width: 900px; margin: 0 auto;">
+                <!-- Card 1: Demonstration Video -->
+                <div class="video-card">
+                    <div class="video-header">
+                        <h3>System Demonstration</h3>
+                        <span class="video-badge badge-demo">Demonstration</span>
+                    </div>
+                    <div class="video-player-wrapper">
+                        <video class="video-element" controls preload="metadata" poster="images/TM5-700cobot.png">
+                            <source src="images/demonstration.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <!-- Fallback overlay -->
+                        <div class="video-fallback">
+                            <div class="fallback-icon">🎥</div>
+                            <h4>Demonstration Video Pending</h4>
+                            <p>Please place <code>demonstration.mp4</code> in the <code>images/</code> folder.</p>
+                        </div>
+                    </div>
+                    <div class="video-details">
+                        <p>A comprehensive walkthrough of the custom end-effector integrated with the TM5-700 Cobot, executing automated pallet emptying and ASRS redocking tasks.</p>
+                        <ul class="video-highlights">
+                            <li><span class="bullet">✦</span> <strong>Workflow:</strong> Automatic pick-and-place cycles.</li>
+                            <li><span class="bullet">✦</span> <strong>Safety:</strong> Collision detection & force-limiting controls.</li>
+                            <li><span class="bullet">✦</span> <strong>Docking:</strong> High-precision mechanical alignment.</li>
+                        </ul>
+                    </div>
                 </div>
-                <div>
-                    <h3
-                        style="font-size: 1.8rem; margin-bottom: 1rem; font-family: 'Poppins', sans-serif; color: var(--primary);">
-                        Simulink Closed-Loop Performance</h3>
-                    <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.05rem;">
-                        Closed-loop positional transient dynamics of the linear actuator were simulated in MATLAB
-                        Simulink. The simulation validated response stability under maximum load bounds (up to 1.5 kg).
-                    </p>
-                    <ul
-                        style="color: var(--text-dark); list-style-type: none; font-size: 0.95rem; padding: 0; margin: 0; line-height: 1.8;">
-                        <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                            <span style="color: var(--accent); font-weight: bold;">✓</span> <strong>Settling
-                                Time:</strong> 0.82 seconds under maximum payload inertia loads.
-                        </li>
-                        <li style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                            <span style="color: var(--accent); font-weight: bold;">✓</span> <strong>Steady State
-                                Error:</strong> less than 0.5% positional offset limit.
-                        </li>
-                        <li style="display: flex; align-items: center; gap: 0.5rem;">
-                            <span style="color: var(--accent); font-weight: bold;">✓</span> <strong>Maximum Design
-                                Overshoot:</strong> restricted under 3.8% to protect objects.
-                        </li>
-                    </ul>
+
+                <!-- Card 2: POV Video -->
+                <div class="video-card">
+                    <div class="video-header">
+                        <h3>POV Action Camera</h3>
+                        <span class="video-badge badge-pov">POV View</span>
+                    </div>
+                    <div class="video-player-wrapper">
+                        <video class="video-element" controls preload="metadata" poster="images/gripper-background.png">
+                            <source src="images/pov.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <!-- Fallback overlay -->
+                        <div class="video-fallback">
+                            <div class="fallback-icon">👁️</div>
+                            <h4>POV Video Pending</h4>
+                            <p>Please place <code>pov.mp4</code> in the <code>images/</code> folder.</p>
+                        </div>
+                    </div>
+                    <div class="video-details">
+                        <p>First-person perspective captured from the gripper-mounted action camera, highlighting the engagement, alignment, and release mechanisms.</p>
+                        <ul class="video-highlights">
+                            <li><span class="bullet">✦</span> <strong>Alignment:</strong> Close-up view of locking pin engagement.</li>
+                            <li><span class="bullet">✦</span> <strong>Feedback:</strong> Real-time sensor trigger visual verification.</li>
+                            <li><span class="bullet">✦</span> <strong>Gripper State:</strong> Solenoid actuation and magnetic latching.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -168,6 +351,33 @@
 
     <!-- JS -->
     <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const videos = document.querySelectorAll('.video-element');
+            videos.forEach(video => {
+                // If video fails to load (file not present)
+                video.addEventListener('error', function() {
+                    const fallback = this.nextElementSibling; // the .video-fallback div
+                    if (fallback && fallback.classList.contains('video-fallback')) {
+                        fallback.style.display = 'flex';
+                        this.style.display = 'none';
+                    }
+                });
+                
+                // Double check inner source error as well
+                const sources = video.querySelectorAll('source');
+                sources.forEach(source => {
+                    source.addEventListener('error', function() {
+                        const fallback = video.nextElementSibling;
+                        if (fallback && fallback.classList.contains('video-fallback')) {
+                            fallback.style.display = 'flex';
+                            video.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
